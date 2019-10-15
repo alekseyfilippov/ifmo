@@ -1,2 +1,1 @@
-# ifmo
-Java Learn
+ITMO Java lesson project.
