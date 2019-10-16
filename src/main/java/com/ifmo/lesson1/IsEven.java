@@ -13,7 +13,17 @@ public class IsEven {
 
     public static boolean isEven(int n) {
         // TODO implement
-
-        return false;
+        // стандартное решение
+        // if(n % 2 == 0) {
+        //    return true;
+        //} else {
+        //    return false;
+        //}
+        // побитовые операции
+        if ((n & 1) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
