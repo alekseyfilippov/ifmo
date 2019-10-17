@@ -16,7 +16,12 @@ public class ClosestToTen {
 
     public static float closestToTen(float m, float n) {
         // TODO implement
-
-        return 0;
+        float a = Math.abs(m - 10);
+        float b = Math.abs(n - 10);
+        if (a < b) {
+            return m;
+        } else {
+            return n;
+        }
     }
 }
