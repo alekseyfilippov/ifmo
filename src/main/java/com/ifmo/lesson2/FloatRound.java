@@ -15,7 +15,7 @@ public class FloatRound {
 
     public static float round(float n) {
         // TODO implement
-
-        return 0;
+        n =  Math.round(n);
+        return n;
     }
 }

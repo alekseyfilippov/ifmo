@@ -18,15 +18,36 @@ public class Count2 {
         // TODO implement
         // for 1 ... 50000
         // contains2(i) increment :
-        return 0;
+        int n = 0;
+        for (int i = 1; i <= 50000; i++) {
+            if (contains2(i) == true) {
+                n++;
+            }
+        }
+
+        return n;
     }
 
-    private static boolean contains2 (int i) {
+    public static boolean contains2(int i) {
         // i = 12345
         // 12345 % 10 == 5;
-        // 12345 / 10 == 1234 5 10 = 4
+        // 12345 / 10 == 1234 % 10 = 4
         //12345 / 10 / 10 == 123 % 10 == 3
-        // 12345 /10/ 10 / 10 ==12 % 2 ==2
-        return true;
+        // 12345 /10 /10 /10 ==12 % 2 == 2
+     //
+        while(i > 0) {
+          if(i % 10 == 2)
+              return true;
+
+          i=i/10;
+        }
+
+
+        return false;
     }
+
+
+
+
+
 }

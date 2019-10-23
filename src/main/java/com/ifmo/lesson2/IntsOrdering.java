@@ -26,8 +26,25 @@ public class IntsOrdering {
 
     public static String ordering(int a, int b, int c) {
         // TODO implement
+        int e=a;
+        int f=b;
+        int g=c;
+
+        if (f > g) {
+            int x = f; f = g; g = x; // swap(f, g);
+        }
+
+        if (e > g) {
+            int x = e; e = g; g = x; // swap(e, g);
+        }
+
+        if (e > f) {
+            int x = e; e = f; f = x; // swap(e, f);
+        }
+
+
 
         return "Числа в переменных a, b и c: " + a + ", " + b + ", " + c + "\n" +
-                "Возрастающая последовательность: " + 0 + ", " + 0 + ", " + 0;
+                "Возрастающая последовательность: " + e + ", " + f + ", " + g;
     }
 }

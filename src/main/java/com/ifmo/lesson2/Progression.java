@@ -7,5 +7,11 @@ public class Progression {
      */
     public static void main(String[] args) {
         // TODO implement
+        for (int i = 1, b = 1000; i <= 9999 ; i++, b+=3) {
+            if (b <= 9999) {
+                System.out.println(b);
+            }
+
+        }
     }
 }

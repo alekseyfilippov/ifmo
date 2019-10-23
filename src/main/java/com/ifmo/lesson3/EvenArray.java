@@ -11,11 +11,17 @@ public class EvenArray {
         int[] evenArray = evenArray();
 
         // TODO implement
+        for (int i = 0; i < evenArray.length; i++) {
+            System.out.print(i + " " + evenArray[i]);
+        }
     }
 
     public static int[] evenArray() {
         // TODO implement
-
-        return new int[0];
+        int [] evenArray = new int[10];
+        for (int i = 0; i < evenArray.length; i++) {
+            evenArray[i] = i*2;
+        }
+        return new int[10];
     }
 }
