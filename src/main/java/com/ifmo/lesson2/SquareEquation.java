@@ -29,22 +29,21 @@ public class SquareEquation {
             double x1, x2;
             x1 = (-b - Math.sqrt(D)) / (2 * a);
             x2 = (-b + Math.sqrt(D)) / (2 * a);
-            double [] roots = new double[2];
-            roots[0] = x1;
-            roots[1] = x2;
+            double [] roots = {x1, x2};
+            return roots;
+
         }
         else if (D == 0) {
             double x;
             x = -b / (2 * a);
             System.out.println("Уравнение имеет единственный корень: x = " + x);
-            double [] roots = new double[1];
-            roots[0] = x;
+            double [] roots = {x};
+            return roots;
         }
         else {
             return null;
         }
 
 
-        return null;
     }
 }

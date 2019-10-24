@@ -52,7 +52,7 @@ public class WallClock {
         int remainingHours = rndSecond/60/60;
         switch(remainingHours){
             case 0:
-                return "Осталось меньше часа";
+                return "Осталось менее часа";
             case 1:
                 return "Остался "+remainingHours+" час";
             case 2:

@@ -16,7 +16,7 @@ public class UnluckyNumbers {
     public static int unluckyNumbersCount() {
         // TODO implement
         int i, counter = 0;
-        for (i = 0; i < 99999; i++) {
+        for (i = 0; i <= 99999; i++) {
             String newString = String.valueOf(i);
             if (newString.indexOf('3') != -1) {
                 counter++;

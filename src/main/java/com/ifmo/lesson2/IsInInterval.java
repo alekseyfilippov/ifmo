@@ -23,7 +23,7 @@ public class IsInInterval {
         // TODO implement
         Random rnd = new Random();
 
-        return 5 + rnd.nextInt(156);
+        return 5 + rnd.nextInt(150);
 
     }
 
