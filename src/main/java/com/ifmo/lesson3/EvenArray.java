@@ -11,17 +11,24 @@ public class EvenArray {
         int[] evenArray = evenArray();
 
         // TODO implement
-        for (int i = 0; i < evenArray.length; i++) {
-            System.out.print(i + " " + evenArray[i]);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print(evenArray[i] + " ");
         }
+        System.out.println(evenArray());
     }
 
     public static int[] evenArray() {
         // TODO implement
         int [] evenArray = new int[10];
-        for (int i = 0; i < evenArray.length; i++) {
-            evenArray[i] = i*2;
+        int i = 0;
+        int b = 2;
+        while (i < 10) {
+            evenArray[i] = b;
+            b += 2;
+            i++;
         }
-        return new int[10];
+
+        return evenArray;
     }
 }
