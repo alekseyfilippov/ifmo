@@ -6,9 +6,7 @@ package com.ifmo.lesson4;
  * оканчивается ссылкой со значением {@code null}.
  */
 public class LinkedList {
-    /**
-     * Ссылка на первый элемент списка.
-     */
+    /** Ссылка на первый элемент списка. */
     private Item head;
 
     /**
@@ -17,20 +15,35 @@ public class LinkedList {
      * @param val Значение, которое будет добавлено.
      */
     public void add(Object val) {
-        // TODO implement
-        //добавить в конец
         if (head == null) {
             head = new Item(val);
-        } else {
-            Item item = head; //item - текущая ссылка
-            while (true) {
-                if (item.next == null) {
-                    item.next = new Item(val);
 
-                    return;
-                }
-                item.next = new Item(val);
-            }
+            return;
+        }
+
+        //noinspection ConstantConditions
+        find(-1).next = new Item(val);
+    }
+
+    private Item find(int i) {
+        if (head == null)
+            return null;
+
+        if (i == 0)
+            return head;
+
+        int cnt = 1;
+
+        for (Item prev = head;;) {
+            Item next = prev.next;
+
+            if (next == null)
+                return i < 0 ? prev : null;
+
+            if (cnt++ == i)
+                return next;
+
+            prev = next;
         }
     }
 
@@ -42,11 +55,10 @@ public class LinkedList {
      * или {@code null}, если не найдено.
      */
     public Object get(int i) {
-        // TODO implement
-        // поиск со счётчиком индекса
-       return 0;
+        Item item = find(i);
+
+        return item == null ? null : item.value;
     }
-    
 
     /**
      * Удаляет значение по индексу и возвращает
@@ -56,22 +68,26 @@ public class LinkedList {
      * @return Удаленное значение или {@code null}, если не найдено.
      */
     public Object remove(int i) {
-        // TODO implement
-        //удалить и добавить ссылку
+        if (head == null)
+            return null;
+
+        if (i == 0) {
+            Item h = head;
+
+            head = head.next;
+
+            return h.value;
+        }
+
+        Item prev = find(i - 1);
+        Item cur;
+
+        if (prev != null && (cur = prev.next) != null) {
+            prev.next = cur.next;
+
+            return cur.value;
+        }
 
         return null;
-    }
-
-
-    public static void main(String[] args) {
-        LinkedList list = new LinkedList();
-
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-
-        list.get(2);
-
     }
 }
