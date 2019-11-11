@@ -15,15 +15,11 @@ public class UnluckyNumbers {
 
     public static int unluckyNumbersCount() {
         // TODO implement
-        int i, counter = 0;
-        for (i = 0; i <= 99999; i++) {
-            String newString = String.valueOf(i);
-            if (newString.indexOf('3') != -1) {
-                counter++;
-            } else if (newString.indexOf('4') != -1) {
-                counter++;
+        int count=0;
+        for (int i =1; i <= 99999; i++){
+            if (String.valueOf(i).contains("4") || String.valueOf(i).contains("13")){
+                count++;
             }
-
-    }
-        return counter;
+        }
+        return count;
     }}
