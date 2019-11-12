@@ -1,6 +1,6 @@
 package com.ifmo.lesson6;
 
-public interface List extends Iterable {
+public interface List<T> extends Iterable {
     /**
      * Добавляет значение в конец списка.
      *

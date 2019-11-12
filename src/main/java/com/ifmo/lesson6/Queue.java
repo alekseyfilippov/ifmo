@@ -25,7 +25,7 @@ package com.ifmo.lesson6;
  * </pre>
  *
  */
-public interface Queue {
+public interface Queue<T> {
     /**
      * Добавляет элемент в конец очереди.
      *

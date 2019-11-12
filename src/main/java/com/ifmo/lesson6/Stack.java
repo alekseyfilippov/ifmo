@@ -26,7 +26,7 @@ package com.ifmo.lesson6;
  * </pre>
  *
  */
-public interface Stack {
+public interface Stack<T> {
     /**
      * Добавляет элемент в голову стека.
      *
