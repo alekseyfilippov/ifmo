@@ -10,20 +10,27 @@ public class UnevenArray {
         int[] unevenArray = unevenArray();
 
         for (int i : unevenArray) {
-            System.out.print(i + ", ");
+            System.out.print(i + " ");
         }
-        System.out.println("\n");
+        System.out.println(", ");
         for (int i = unevenArray.length-1; i>=0; i--){
-            System.out.print(unevenArray[i] + ", ");
+            System.out.print(unevenArray[i] + " ");
         }
     }
 
     public static int[] unevenArray() {
-        int[] arrint = new int[50];
-        for (int i=0; i<=49; i++){
-            arrint[i]=i*2+1;
+        int a=0;
+        for(int i=1;i<=99;i++){
+            if(i%2!=0)a++;
         }
 
-        return arrint;
+        int[] Mas = new int[a];
+        for(int i=1,b=0;i<=99;i++){
+            if(i%2!=0){
+                Mas[b]=i;
+                b++;
+            }
+        }
+        return Mas;
     }
 }
