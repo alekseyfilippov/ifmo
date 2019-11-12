@@ -12,7 +12,7 @@ public class Fibonacci {
         int first=1;
         int second=1;
         int actual;
-        for(int i =3; i<=12; i++) {
+        for(int i =3; i<=11; i++) {
             actual = first + second;
             first = second;
             second = actual;
