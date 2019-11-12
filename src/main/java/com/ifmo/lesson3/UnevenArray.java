@@ -9,12 +9,28 @@ public class UnevenArray {
     public static void main(String[] args) {
         int[] unevenArray = unevenArray();
 
-        // TODO implement
+        for (int i : unevenArray) {
+            System.out.print(i + " ");
+        }
+        System.out.println(", ");
+        for (int i = unevenArray.length-1; i>=0; i--){
+            System.out.print(unevenArray[i] + " ");
+        }
     }
 
     public static int[] unevenArray() {
-        // TODO implement
+        int a=0;
+        for(int i=1;i<=99;i++){
+            if(i%2!=0)a++;
+        }
 
-        return new int[0];
+        int[] Mas = new int[a];
+        for(int i=1,b=0;i<=99;i++){
+            if(i%2!=0){
+                Mas[b]=i;
+                b++;
+            }
+        }
+        return Mas;
     }
 }
