@@ -24,7 +24,13 @@ public class PrimeNumber {
 
     public static boolean isPrime(int n) {
         // TODO implement
-        if (n % 2 == 0 && n != 2) return false;
+        if (n == 1) {
+            return false;
+        }
+
+        if (n % 2 == 0 && n != 2) {
+            return false;
+        }
         int maxDiv = (int) Math.sqrt(n);
         for (int i = 2; i <= maxDiv; i+=2) {
             if (n % i == 0) return false;

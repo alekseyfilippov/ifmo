@@ -20,10 +20,11 @@ public class Utils {
     }
 
     interface Transform<T, R> {
-        Integer.toString (int i)
+        boolean isValid(T item);
+        // Integer.toString (int i);
     }
 
-    public static <T> List<T> transmormer(List<T> list, Transform<R> transmormer) {
+    public static <T, R> List<T> transmormer(List<T> list, Transform<T,R> transmormer) {
         List<T> result = new ArrayList<>((list.size()));
         for (T item : list) {
             if (transmormer.isValid(item))
