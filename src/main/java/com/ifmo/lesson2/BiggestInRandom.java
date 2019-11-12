@@ -1,5 +1,7 @@
 package com.ifmo.lesson2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BiggestInRandom {
@@ -19,24 +21,24 @@ public class BiggestInRandom {
     }
 
     public static int threeDigitRandom() {
-        Random rnd = new Random();
-
-        return 100 + rnd.nextInt(900);
+        Random rnd = new Random((System.currentTimeMillis()));
+        return 100 + rnd.nextInt(999-100+1);
     }
 
     public static String largestDigit(int rnd) {
         // TODO implement
-        int a = rnd / 100;
-        int b = (rnd - a *100) / 10;
-        int c = rnd % 10;
         int max = 0;
 
-        if (a > b && b > c) {
-            max = a;
-        } else if (b > a && b > c) {
-            max = b;
-        } else if (c > a && c > b) {
-            max = c;
+        List<Integer> allDigitals = new ArrayList<>();
+
+        for (char ch : String.valueOf(rnd).toCharArray()){
+            allDigitals.add(Character.getNumericValue(ch));
+        }
+
+        for (int each : allDigitals){
+            if (max < each){
+                max=each;
+            }
         }
 
 

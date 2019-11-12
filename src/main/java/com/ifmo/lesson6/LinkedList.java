@@ -1,6 +1,7 @@
 package com.ifmo.lesson6;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 /**
  * Односвязный список, где каждый предыдущий
@@ -9,57 +10,139 @@ import java.util.Iterator;
  */
 public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
     /** Ссылка на первый элемент списка. */
-    private Item head;
+    private Item<T> head;
 
-    /** {@inheritDoc} */
+    /** {@inheritDoc}
+     * @param val*/
     @Override
-    public void add(T val) {
-        // TODO implement.
+    public void add(Object val) {
+        if (head==null){
+            head= new Item<T>((T) val);
+            return;
+        }
+        Item<T> obj = head;
+        while (obj.next!=null){
+            obj=obj.next;
+        }
+        obj.next=new Item<T>((T) val);
     }
 
     /** {@inheritDoc} */
     @Override
     public T take() {
-        // TODO implement.
-
-        return null;
+        return pop();
     }
+
 
     /** {@inheritDoc} */
     @Override
     public T get(int i) {
-        // TODO implement.
-
+        Item<T> obj = head;
+        int count=0;
+        while(obj!=null){
+            if (count==i){
+                return obj.value;
+            }
+            obj=obj.next;
+            count++;
+        }
         return null;
     }
 
     /** {@inheritDoc} */
     @Override
     public T remove(int i) {
-        // TODO implement.
-
+        Item<T> obj = head;
+        if (obj==null){
+            return null;
+        }
+        if (i==0){
+            T value = obj.value;
+            obj=obj.next;
+            return value;
+        }
+        int count=0;
+        while (obj.next!=null){
+            if (count==i-1){
+                T nextValue = obj.next.value;
+                obj.next=obj.next.next;
+                return nextValue;
+            }
+            obj=obj.next;
+            count++;
+        }
         return null;
     }
 
     /** {@inheritDoc} */
     @Override
     public Iterator iterator() {
-        // TODO implement.
-
-        return null;
+        return new LinkedListIterator(head);
     }
 
-    /** {@inheritDoc} */
     @Override
-    public void push(T value) {
-        // TODO implement.
+    public void forEach(Consumer action) {
+
     }
 
-    /** {@inheritDoc} */
+    /** {@inheritDoc}
+     * @param value*/
+    @Override
+    public void push(Object value) {
+        Item<T> tmp = head;
+        head = new Item<T>((T) value);
+        head.next=tmp;
+    }
+
+
+    /** {@inheritDoc}
+     * @return*/
     @Override
     public T pop() {
-        // TODO implement.
+        if (head==null)
+            return null;
+        Item<T> tmp = head;
+        head = head.next;
+        return tmp.value;   //???
+    }
+    private class LinkedListIterator implements Iterator<Object> {
+        private Item<T> item;
+        //private int count;
 
-        return null;
+        public LinkedListIterator(Item<T> head){
+            this.item=head;
+        }
+        @Override
+        public boolean hasNext(){
+            return item!= null;
+        }
+        @Override
+        public T next(){
+            T tmp = item.value;
+            item = item.next;
+            return tmp;
+        }
+    }
+    private class Item<T> {
+        /** Значение элемента. */
+        T value;
+
+        /** Ссылка на следующий элемент. */
+        Item<T> next;
+
+        /**
+         * Инициализирует элемент со значением
+         * {@code value}.
+         *
+         * @param value Значение, которое будет сохранено
+         *              в этом элементе.
+         */
+        Item(T value) {
+            this.value = value;
+        }
+        @Override
+        public String toString(){
+            return value.toString();
+        }
     }
 }

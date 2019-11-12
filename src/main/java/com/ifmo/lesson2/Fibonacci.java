@@ -8,16 +8,15 @@ public class Fibonacci {
      */
     public static void main(String[] args) {
         // TODO implement
-        int n0 = 1;
-        int n1 = 1;
-        int n2;
-        System.out.print(n0+" "+n1+" ");
-        for(int i = 3; i <= 12; i++){
-            n2=n0+n1;
-            System.out.print(n2+" ");
-            n0=n1;
-            n1=n2;
+        System.out.printf("11");
+        int first=1;
+        int second=1;
+        int actual;
+        for(int i =3; i<=12; i++) {
+            actual = first + second;
+            first = second;
+            second = actual;
+            System.out.printf(Integer.toString(actual));
         }
-        System.out.println();
     }
 }
