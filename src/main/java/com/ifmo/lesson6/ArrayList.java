@@ -15,10 +15,10 @@ import java.util.Iterator;
  * |0|1|3|4|5|_|
  * Теперь при итерации по ним после 1 будет идти сразу 3, как в связном списке.
  */
-public class ArrayList implements List {
+public class ArrayList <T> implements List<T> {
     private static final int DEFAULT_SIZE = 10;
 
-    private Object[] values;
+    private T[] values;
 
     /**
      * Создаёт новый {@link #ArrayList} с размером внутреннего массива по умолчанию.
@@ -34,18 +34,18 @@ public class ArrayList implements List {
      * @param initialSize Начальный размер внутреннего массива.
      */
     public ArrayList(int initialSize) {
-        values = new Object[initialSize];
+//        values = new T [initialSize];
     }
 
     /** {@inheritDoc} */
     @Override
-    public void add(Object val) {
+    public void add(T val) {
         // TODO implement.
     }
 
     /** {@inheritDoc} */
     @Override
-    public Object get(int i) {
+    public T get(int i) {
         // TODO implement.
 
         return null;
@@ -53,7 +53,7 @@ public class ArrayList implements List {
 
     /** {@inheritDoc} */
     @Override
-    public Object remove(int i) {
+    public T remove(int i) {
         // TODO implement.
 
         return null;

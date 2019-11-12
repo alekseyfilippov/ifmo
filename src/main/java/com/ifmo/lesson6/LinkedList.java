@@ -7,27 +7,19 @@ import java.util.Iterator;
  * элемент харнит ссылку на следующий. Список
  * оканчивается ссылкой со значением {@code null}.
  */
-public class LinkedList implements List, Stack, Queue {
+public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
     /** Ссылка на первый элемент списка. */
     private Item head;
 
     /** {@inheritDoc} */
     @Override
-    public void add(Object val) {
+    public void add(T val) {
         // TODO implement.
     }
 
     /** {@inheritDoc} */
     @Override
-    public Object take() {
-        // TODO implement.
-
-        return null;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Object get(int i) {
+    public T take() {
         // TODO implement.
 
         return null;
@@ -35,7 +27,15 @@ public class LinkedList implements List, Stack, Queue {
 
     /** {@inheritDoc} */
     @Override
-    public Object remove(int i) {
+    public T get(int i) {
+        // TODO implement.
+
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public T remove(int i) {
         // TODO implement.
 
         return null;
@@ -51,13 +51,13 @@ public class LinkedList implements List, Stack, Queue {
 
     /** {@inheritDoc} */
     @Override
-    public void push(Object value) {
+    public void push(T value) {
         // TODO implement.
     }
 
     /** {@inheritDoc} */
     @Override
-    public Object pop() {
+    public T pop() {
         // TODO implement.
 
         return null;
