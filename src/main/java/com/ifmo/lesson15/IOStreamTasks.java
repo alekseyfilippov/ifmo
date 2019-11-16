@@ -1,16 +1,21 @@
 package com.ifmo.lesson15;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 /*
     Реализуйте все методы с использованием потоков ввода-вывода.
  */
 public class IOStreamTasks {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        File src = new File("C:\\Users\\young\\Documents\\ITMO-Sber\\ifmo\\src\\main\\resources\\wap.txt");
+        File dst = new File("C:\\Users\\young\\Documents\\ITMO-Sber\\ifmo\\src\\main\\resources\\wap_copy.txt");
+
+        try (InputStream in = new FileInputStream(src);
+            OutputStream out = new FileOutputStream(dst)) {
+            copy(in, out);
+        }
 
     }
 
@@ -23,6 +28,11 @@ public class IOStreamTasks {
      */
     public static void copy(InputStream src, OutputStream dst) throws IOException {
         // TODO implement
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = src.read(buf)) > 0)
+                dst.write(buf, 0, len);
+
     }
 
     /**
