@@ -1,14 +1,17 @@
 package com.ifmo.lesson5.Shapes;
 
 public class Triangle extends Shape {
-    private double a;
-    private double b;
-    private double c;
+
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
 
     @Override
-    public double area () {
-        double p = (a+b+c)/2;
-        double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
-        return s;
+    public double aria() {
+        return (base * height) / 2;
     }
 }

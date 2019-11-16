@@ -1,5 +1,7 @@
 package com.ifmo.lesson14.calc;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /*
@@ -19,6 +21,9 @@ import java.util.Scanner;
  * если имя переменной не найдено или использовался неверный синтаксис.
  */
 public class SimpleCalc {
+
+    private static Map<String, Integer> variables = new HashMap<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -32,8 +37,7 @@ public class SimpleCalc {
 
             try {
                 System.out.println("Answer is: " + calculate(line));
-            }
-            catch (CalcException e) {
+            } catch (CalcException e) {
                 System.err.println("Error occurred: ");
 
                 e.printStackTrace();
@@ -42,50 +46,53 @@ public class SimpleCalc {
     }
 
     static int calculate(String line) throws CalcException {
-        if (!line.contains("+") && !line.contains("-"))
-            throw new CalcException("Expression must contain '+' or '-' +' or '=x': " + line);
-
-
+        if (!line.contains("+") && !line.contains("-") && !line.contains("="))
+            throw new CalcException("Expression must contain '+' or '-' or '=' : " + line);
 
         String[] operands = line.split(" ");
 
         if (operands.length != 3)
             throw new CalcException("Expression must have only 3 operands separated with space (e.g. 2 + 4): " + line);
 
+
         OPERATOR operator = OPERATOR.parse(operands[1]);
 
-        int op1 = parseOperand(operands[0]);
-        int op2 = parseOperand(operands[2]);
+        if (OPERATOR.EQUALS.equals(operator)) {
+            int op2 = parseOperand(operands[2]);
+            variables.put(operands[0], op2);
+            return op2;
+        }
+
+        int op1 = variables.containsKey(operands[0]) ? variables.get(operands[0]) : parseOperand(operands[0]);
+        int op2 = variables.containsKey(operands[2]) ? variables.get(operands[2]) : parseOperand(operands[2]);
 
         return operator.apply(op1, op2);
     }
 
     private static int parseOperand(String string) throws CalcException {
         try {
-           return Integer.parseInt(string);
-       }
-        catch (NumberFormatException e) {
-           throw new CalcException("Wrong operand, must be only integer number: " + string, e);
-       }
+            return Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            throw new CalcException("Wrong operand, must be only integer number: " + string, e);
+        }
     }
+
 
     private enum OPERATOR {
         PLUS, MINUS, EQUALS;
 
         int apply(int arg1, int arg2) throws CalcException {
             switch (this) {
-
                 case PLUS:
                     return arg1 + arg2;
 
                 case MINUS:
                     return arg1 - arg2;
-
-                case EQUALS:
-                    return arg1 = arg2;
             }
 
             throw new CalcException("Unsupported operator: " + this);
+
+
         }
 
         static OPERATOR parse(String str) throws CalcException {
@@ -102,5 +109,6 @@ public class SimpleCalc {
 
             throw new CalcException("Incorrect operator: " + str);
         }
+
     }
 }

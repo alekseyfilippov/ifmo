@@ -1,6 +1,7 @@
 package com.ifmo.lesson5.Shapes;
 
 public class Rectangle extends Shape {
+
     private double a;
     private double b;
 
@@ -10,7 +11,7 @@ public class Rectangle extends Shape {
     }
 
     @Override
-    public double area() {
+    public double aria() {
         return a * b;
     }
 }

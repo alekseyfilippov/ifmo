@@ -1,24 +1,29 @@
 package com.ifmo.lesson9.generics;
 
-public class StringAppendable<string> implements Appendable<string> {
-    private static String separator = ", ";
+public class StringAppendable implements Appendable<String, StringAppendable>{
 
+    StringBuilder sb = new StringBuilder();
 
-    public StringAppendable(String value) {
-    }
-
-
-    @Override
-    public Appendable append(string o) {
-        return null;
+    String separator;
+    public StringAppendable(String separator) {
+        this.separator = separator;
     }
 
     @Override
-    public string value() {
-        return null;
+    public StringAppendable append(String type) {
+        if(sb.length() > 0) {
+            sb.append(separator);
+            sb.append(type);
+        } else {
+            sb.append(type);
+        }
+        return this;
     }
 
-    StringAppendable sa = new StringAppendable("gogogo");
+    @Override
+    public String value() {
+        return sb.toString();
+    }
 }
 
 

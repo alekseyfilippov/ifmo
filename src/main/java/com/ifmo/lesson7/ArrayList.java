@@ -1,5 +1,8 @@
-package com.ifmo.lesson6;
+package com.ifmo.lesson7;
 
+import com.ifmo.lesson6.List;
+
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -16,27 +19,25 @@ import java.util.Iterator;
  * |0|1|3|4|5|_|
  * Теперь при итерации по ним после 1 будет идти сразу 3, как в связном списке.
  */
-public class ArrayList<T> implements List<T> {
+public class ArrayList implements List {
     private static final int DEFAULT_SIZE = 10;
 
     private Object[] values;
     private int tail;
 
-    private class ArrayListIterator implements Iterator<T> {
+    private class ArrayListIterator implements Iterator<Object>{
 
         private int index;
-
         @Override
         public boolean hasNext() {
             return index < tail;
         }
 
         @Override
-        public T next() {
+        public Object next() {
             return get(index++);
         }
     }
-
     /**
      * Создаёт новый {@link #ArrayList} с размером внутреннего массива по умолчанию.
      */
@@ -58,7 +59,7 @@ public class ArrayList<T> implements List<T> {
      * {@inheritDoc}
      */
     @Override
-    public void add(T val) {
+    public void add(Object val) {
         if (tail == values.length) reSize();
         values[tail++] = val;
     }
@@ -67,20 +68,20 @@ public class ArrayList<T> implements List<T> {
      * {@inheritDoc}
      */
     @Override
-    public T get(int i) {
+    public Object get(int i) {
         if (i < 0 || i >= tail) return null;
-        return (T) values[i];
+        return values[i];
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public T remove(int i) {
+    public Object remove(int i) {
         if (i < 0 || i >= tail) return null;
-        T value = (T) values[i];
-        for (int j = i; j < tail - 1; j++) {
-            values[j] = values[j + 1];
+        Object value = values[i];
+        for (int j = i; j < tail; j++) {
+            values[i] = values[i + 1];
         }
         values[--tail] = null;
         return value;
@@ -90,7 +91,7 @@ public class ArrayList<T> implements List<T> {
      * {@inheritDoc}
      */
     @Override
-    public Iterator<T> iterator() {
+    public Iterator iterator() {
         return new ArrayListIterator();
     }
 
@@ -99,5 +100,18 @@ public class ArrayList<T> implements List<T> {
      */
     private void reSize() {
         values = Arrays.copyOf(values, values.length * 2);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        ArrayList newList = new ArrayList();
+        newList.values = values.clone();
+        newList.tail = tail;
+        return newList;
     }
 }
