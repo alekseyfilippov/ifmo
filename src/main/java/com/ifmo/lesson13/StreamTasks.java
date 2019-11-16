@@ -1,8 +1,7 @@
 package com.ifmo.lesson13;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamTasks {
@@ -44,7 +43,18 @@ public class StreamTasks {
     // Метод возвращает страны в порядке убывания их населения.
     public static List<String> countriesSortedByTheirPopulationDescending(Stream<Person> people) {
         // TODO implement.
+        //1. Получить страны и население
 
+        Map<String, Long> popInCountry =
+                people.collect(Collectors.groupingBy(person -> person.country, Collectors.counting()));
+        //2. Отсортировать в прядке убывания
+        popInCountry.entrySet()
+                .stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                //3/ преобразовать только в страны
+                .map(entry -> entry.getKey())
+                //4. Собираем список
+                .collect(Collectors.toList());
 
         return List.of();
     }
@@ -53,7 +63,19 @@ public class StreamTasks {
     // до 18 лет.
     public static String countryThatHasMostKids(Stream<Person> people) {
         // TODO implement.
+        people
+                .filter(p -> p.age < 18)
+                .collect(Collectors.groupingBy(p -> p.country, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .max(Comparator.comparingLong(Map.Entry::getValue))
+                    .map(Map.Entry::getKey)
+                .orElse("Unknow");
 
+        return null;
+    }
+
+    private static Optional<String> map(Object getKey) {
         return null;
     }
 
@@ -64,13 +86,20 @@ public class StreamTasks {
         return Map.of();
     }
 
+    private static List<String> COUNTRIES= List.of("USA", "India", "Russia", "USSR");
+    private static List<String> NAMES= List.of("John", "Bob", "Amy", "Monika", "Bender", "Fry", "Lila", "Neebler" );
+
     // Метод генерирует случайных людей в ограниченном наборе стран.
     // number - число желаемых людей.
     public static Stream<Person> generatePeople(int number) {
         // TODO implement.
-
-        return Stream.of();
+        var rnd = new Random(0);
+        return Stream.generate(
+                () -> new Person(NAMES.get(rnd.nextInt(NAMES.size())),24, COUNTRIES.get(rnd.nextInt(COUNTRIES.size())))
+        ).limit(number);
     }
+
+
 
     // Метод возвращает карту сгруппированных слов по их длине. Например, для
     // трёхбуквенных слов будет:
@@ -84,13 +113,23 @@ public class StreamTasks {
     // Метод находит среднюю длину слов в списке.
     public static int averageWordLength(List<String> words) {
         // TODO implement.
+    //   int avg = words.stream()
+   //             .map(word -> word.length())
+   //             .collect(Collectors.averagingInt(l -> l).intValue);
 
-        return 0;
+       int v = (int)words.stream()
+               .mapToInt(word -> word.length())
+               .average()
+               .orElse(0);
+
+
+        return 0/*avg*/;
     }
 
     // Метод находит самое длинное слово или слова, если таких несколько.
     public static Set<String> longestWords(List<String> words) {
         // TODO implement.
+
 
         return Set.of();
     }
