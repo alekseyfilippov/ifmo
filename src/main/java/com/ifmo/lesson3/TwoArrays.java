@@ -1,6 +1,7 @@
 package com.ifmo.lesson3;
 
 import java.util.Arrays;
+import java.util.OptionalDouble;
 import java.util.Random;
 
 public class TwoArrays {
@@ -10,52 +11,49 @@ public class TwoArrays {
      каждого массива и сообщите, для какого из массивов это значение оказалось больше (либо
      сообщите, что их средние арифметические равны).
      */
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
-        TwoArrays ta = new TwoArrays();
+        int[] randomNumbers1 = randomNumbers();
+        printArrayToLine(randomNumbers1);
 
-        int[] randomNumbers1 = ta.randomNumbers();
-        int[] randomNumbers2 = ta.randomNumbers();
+        int[] randomNumbers2 = randomNumbers();
+        printArrayToLine(randomNumbers2);
 
-        // TODO implement
-        for(int i:randomNumbers1){
-            System.out.print(i+" ");
-        }
-        System.out.println();
-        for(int i:randomNumbers2){
-            System.out.print(i+" ");
-        }
 
         int average1 = average(randomNumbers1);
         int average2 = average(randomNumbers2);
-
-        // TODO implement
-        if(average1>average2){
-            System.out.println("Среднее арифмитическое массива randomNumbers1 больше");
-        }else if (average1<average2) {
-            System.out.println("Среднее арифмитическое массива randomNumbers2 больше");
-        }else {
-            System.out.println("Средние арифмитические равны");
+        if(average1 == average2){
+            System.out.println( "Средние арифметическое значение двух массивов равны");
+        } else if (average1 > average2){
+            System.out.println("Средние арифметическое значение первого массива больше второго");
+        } else {
+            System.out.println("Средние арифметическое значение второго массива больше первого");
         }
     }
 
     public static int[] randomNumbers() {
-        // TODO implement
-        Random random=new Random();
-        int [] array=new int[5];
-        for(int i=0;i<array.length;i++){
-            array[i]=random.nextInt(100);
+        int[] array = new int[5];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(6);
         }
-        return array;
 
+        return array;
     }
 
     public static int average(int[] randomNumbers) {
-        // TODO implement
-        int result=0;
-        for(int i:randomNumbers){
-            result+=i;
-        }
-        return result/randomNumbers.length;
+        OptionalDouble averageDouble = Arrays.stream(randomNumbers).average();
+        return (int) Math.round(averageDouble.getAsDouble());
+    }
 
+    private static void printArrayToLine(int[] array) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            builder.append(array[i]);
+            if(i < array.length - 1){
+                builder.append(" ");
+            }
+        }
+        System.out.println(builder);
     }
 }

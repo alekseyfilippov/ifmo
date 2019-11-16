@@ -9,7 +9,6 @@ public class PrimeNumber {
     хотя бы один нетривиальный делитель уже ясно, что число составное и проверку продолжать
     не нужно). Также учтите, что наименьший делитель натурального числа n, если он вообще
     имеется, обязательно располагается в отрезке [2; √n].
-
     1 не считается простым числом.
      */
     public static void main(String[] args) {
@@ -23,17 +22,9 @@ public class PrimeNumber {
     }
 
     public static boolean isPrime(int n) {
-        // TODO implement
-        if (n == 1) {
-            return false;
-        }
-
-        if (n % 2 == 0 && n != 2) {
-            return false;
-        }
-        int maxDiv = (int) Math.sqrt(n);
-        for (int i = 2; i <= maxDiv; i+=2) {
-            if (n % i == 0) return false;
+        if(n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if(n % i == 0) return false;
         }
         return true;
     }

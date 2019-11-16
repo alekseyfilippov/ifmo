@@ -1,5 +1,7 @@
 package com.ifmo.lesson3;
 
+import java.util.Arrays;
+
 public class UnevenArray {
     /*
     Создайте массив из всех нечётных чисел от 1 до 99, выведите его на экран в строку, а затем
@@ -8,29 +10,38 @@ public class UnevenArray {
      */
     public static void main(String[] args) {
         int[] unevenArray = unevenArray();
-
-        for (int i : unevenArray) {
-            System.out.print(i + " ");
-        }
-        System.out.println(", ");
-        for (int i = unevenArray.length-1; i>=0; i--){
-            System.out.print(unevenArray[i] + " ");
-        }
+        printArray(unevenArray);
+        printArrayReverse(unevenArray);
     }
 
     public static int[] unevenArray() {
-        int a=0;
-        for(int i=1;i<=99;i++){
-            if(i%2!=0)a++;
+        int[] array = new int[50];
+        for (int i = 1, j = 0; i < 100; i += 2) {
+            array[j++] = i;
         }
 
-        int[] Mas = new int[a];
-        for(int i=1,b=0;i<=99;i++){
-            if(i%2!=0){
-                Mas[b]=i;
-                b++;
+        return array;
+    }
+
+    private static void printArrayReverse(int[] array){
+        StringBuilder builder = new StringBuilder();
+        for (int i = array.length - 1; i >= 0; i--) {
+            builder.append(array[i]);
+            if(i > 0){
+                builder.append(" ");
             }
         }
-        return Mas;
+        System.out.println(builder);
+    }
+
+    private static void printArray(int[] array){
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            builder.append(array[i]);
+            if(i < array.length - 1){
+                builder.append(" ");
+            }
+        }
+        System.out.println(builder);
     }
 }
