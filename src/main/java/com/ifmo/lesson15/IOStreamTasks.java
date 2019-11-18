@@ -1,6 +1,7 @@
 package com.ifmo.lesson15;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -9,8 +10,8 @@ import java.util.List;
 public class IOStreamTasks {
     public static void main(String[] args) throws IOException {
 
-        File src = new File("C:\\Users\\young\\Documents\\ITMO-Sber\\ifmo\\src\\main\\resources\\wap.txt");
-        File dst = new File("C:\\Users\\young\\Documents\\ITMO-Sber\\ifmo\\src\\main\\resources\\wap_copy.txt");
+        File src = new File("src/main/resources/wap.txt");
+        File dst = new File("src/main/resources/wap_copy.txt");
 
         try (InputStream in = new FileInputStream(src);
             OutputStream out = new FileOutputStream(dst)) {
@@ -47,7 +48,20 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static List<File> split(File file, File dstDir, int size) throws IOException {
-        return List.of();
+        List<File> list = new ArrayList<>();
+        byte[] buf = new byte[size];
+        try (InputStream in = new FileInputStream(file)) {
+            for (int i = 1; ; i++) {
+                int len;
+                if ((len = in.read(buf)) < 0) break;
+                File outFile = new File(dstDir.getAbsolutePath() + "/" + file.getName() + "_" + i);
+                list.add(outFile);
+                try (OutputStream out = new FileOutputStream(outFile)) {
+                    out.write(buf, 0, len);
+                }
+            }
+        }
+        return list;
     }
 
     /**
@@ -58,7 +72,17 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void assembly(List<File> files, File dst) throws IOException {
-
+        byte[] buf = new byte[1024];
+        try (OutputStream out = new FileOutputStream(dst)) {
+            for (File file : files) {
+                try (InputStream in = new FileInputStream(file)) {
+                    int len;
+                    while ((len = in.read(buf)) > 0) {
+                        out.write(buf, 0, len);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -70,7 +94,12 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(InputStream src, OutputStream dst, String passphrase) throws IOException {
-
+        int len;
+        byte[] buf = new byte[1024];
+        while ((len = src.read(buf)) > 0) {
+            encrypt(buf, passphrase);
+            dst.write(buf, 0, len);
+        }
     }
 
     /**
@@ -82,6 +111,54 @@ public class IOStreamTasks {
      * @throws IOException Будет выброшен в случае ошибки.
      */
     public static void encrypt(File src, File dst, File key) throws IOException {
-
+        byte[] bufIn = new byte[1024];
+        String passphrase = getString(key);
+        try (InputStream in = new BufferedInputStream(new FileInputStream(src));
+             OutputStream out = new BufferedOutputStream(new FileOutputStream(dst))) {
+            encrypt(in, out, passphrase);
+        }
     }
+
+    /**
+     * Шифрует/дешифрует массив байт с помощью ключевой строки
+     *
+     * @param array      массив, который должен быть зашифрован/расшифрован.
+     * @param passphrase строка, с помощью которой должен быть зашшифрован/расшифрован массив.
+     */
+    private static void encrypt(byte[] array, String passphrase) {
+        encrypt(array, passphrase.getBytes());
+    }
+
+    /**
+     * Шифрует/дешифрует массив байт с помощью ключивого массива байт
+     *
+     * @param array массив, который должен быть зашифрован/расшифрован.
+     * @param key   массив, с помощью которого должен быть зашшифрован/расшифрован массив.
+     */
+    private static void encrypt(byte[] array, byte[] key) {
+        for (int i = 0, j = 0; i < array.length; i++) {
+            array[i] ^= key[j];
+            j = ++j < key.length ? j : 0;
+        }
+    }
+
+    /**
+     * Возвращает строку полученную из файла
+     *
+     * @param file файл, из которого должна быть получена строка.
+     * @return {@code String} строка.
+     * @throws IOException
+     */
+    private static String getString(File file) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        char[] chars = new char[1024];
+        try (Reader reader = new FileReader(file)) {
+            int len;
+            while ((len = reader.read(chars)) > 0) {
+                sb.append(chars, 0, len);
+            }
+        }
+        return sb.toString();
+    }
+
 }
