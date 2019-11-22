@@ -2,7 +2,6 @@ package com.ifmo.lesson17.Factory;
 
 public class Toyota implements Car {
 
-
     @Override
     public int power() {
         return 50;
