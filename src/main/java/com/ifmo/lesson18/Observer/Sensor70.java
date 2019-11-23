@@ -1,4 +1,4 @@
-package com.ifmo.lesson17.Observer;
+package com.ifmo.lesson18.Observer;
 
 public class Sensor70 implements Sensor {
     @Override
