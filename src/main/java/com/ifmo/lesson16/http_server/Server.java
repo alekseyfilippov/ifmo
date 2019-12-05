@@ -1,4 +1,4 @@
-package com.ifmo.lesson16.http_server;
+package com.ifmo.lesson16.server;
 
 import java.io.IOException;
 import java.io.InputStream;
